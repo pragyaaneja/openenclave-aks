@@ -1,11 +1,7 @@
 FROM ubuntu:18.04 as attested_tls
 
-RUN apt update; apt-get -yqq install git ssh make
-
-RUN mkdir -p -m 0600 ~/.ssh && ssh-keyscan github.com >> ~/.ssh/known_hosts
-
 ## Install tools required to install openenclave
-RUN apt update; apt -y install wget gnupg python apt-transport-https libssl1.0.0 libssl-dev git gdb
+RUN apt update; apt -y install wget gnupg python apt-transport-https libssl1.0.0 libssl-dev git make
 
 ## Adding the Intel and Microsoft repositories to apt
 RUN echo 'deb [arch=amd64] https://download.01.org/intel-sgx/sgx_repo/ubuntu bionic main' | tee /etc/apt/sources.list.d/intel-sgx.list \

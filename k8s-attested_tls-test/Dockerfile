@@ -13,7 +13,7 @@ RUN echo "deb [arch=amd64] https://packages.microsoft.com/ubuntu/18.04/prod bion
 RUN apt update \
     && apt -y install libsgx-enclave-common libsgx-enclave-common-dev libsgx-dcap-ql libsgx-dcap-ql-dev az-dcap-client open-enclave gcc g++
 
-## Clone attested TLS sample from github
+## Clone openenclave repo from github
 RUN git clone https://github.com/microsoft/openenclave.git
 
 ## Set working directory & variables, make the sample

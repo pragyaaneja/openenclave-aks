@@ -14,7 +14,7 @@ RUN apt update \
     && apt -y install libsgx-enclave-common libsgx-enclave-common-dev libsgx-dcap-ql libsgx-dcap-ql-dev az-dcap-client open-enclave gcc g++
 
 ## Clone attested TLS sample from github
-RUN git clone --single-branch --branch sagoel/handle-lb https://github.com/salsal97/openenclave.git
+RUN git clone https://github.com/microsoft/openenclave.git
 
 ## Set working directory & variables, make the sample
 WORKDIR /openenclave/samples/attested_tls
@@ -22,4 +22,4 @@ RUN . /opt/openenclave/share/openenclave/openenclaverc \
     && export CC=gcc && export CXX=g++ && export PKG_CONFIG_PATH=/opt/openenclave/share/pkgconfig/ \
     && make
 
-CMD make run
+CMD make run-server-in-loop

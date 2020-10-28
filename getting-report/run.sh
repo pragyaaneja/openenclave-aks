@@ -1,0 +1,1 @@
+../../workspace/openenclave-aks/compile-and-run.sh

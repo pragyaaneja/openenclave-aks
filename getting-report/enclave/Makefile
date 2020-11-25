@@ -15,6 +15,7 @@ ifeq ($(LVI_MITIGATION), ControlFlow)
 endif
 
 CFLAGS=$(shell pkg-config oeenclave-$(COMPILER) --cflags)
+CXXFLAGS=$(shell pkg-config oeenclave-$(CXX_COMPILER) --cflags)
 LDFLAGS=$(shell pkg-config oeenclave-$(COMPILER) --libs)
 INCDIR=$(shell pkg-config oeenclave-$(COMPILER) --variable=includedir)
 
@@ -28,7 +29,7 @@ build:
 	oeedger8r ../getting_report.edl --trusted \
 		--search-path $(INCDIR) \
 		--search-path $(INCDIR)/openenclave/edl/sgx
-	$(CC) -g -c $(CFLAGS) -DOE_API_VERSION=2 enc.c -o enc.o
+	$(CXX) -g -c $(CFLAGS) -DOE_API_VERSION=2 enc.cpp -o enc.o
 	$(CC) -g -c $(CFLAGS) -DOE_API_VERSION=2 getting_report_t.c -o getting_report_t.o
 	$(CC) -o getting_reportenc getting_report_t.o enc.o $(LDFLAGS)
 

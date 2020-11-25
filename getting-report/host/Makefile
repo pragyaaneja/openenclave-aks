@@ -13,7 +13,7 @@ build:
 	oeedger8r ../getting_report.edl --untrusted \
 		--search-path $(INCDIR) \
 		--search-path $(INCDIR)/openenclave/edl/sgx
-	$(CC) -g -c $(CFLAGS) host.c
+	$(CXX) -g -c $(CFLAGS) host.cpp
 	$(CC) -g -c $(CFLAGS) getting_report_u.c
 	$(CC) -o getting_reporthost getting_report_u.o host.o $(LDFLAGS)
 

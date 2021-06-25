@@ -1,0 +1,35 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: check-attestation-sample
+spec:
+  template:
+    metadata:
+      labels:
+        app: check-attestation-sample
+    spec:
+      containers:
+      - name: check-attestation-sample
+        # image: praneja/oe-get-evidence:0.1 #built from node-problem-detector/config/plugin/getting-report
+        image: praneja/oe-get-evidence:0.2 #built from workspace/openenclave-aks/getting-report
+        # command: ["make","run"]
+        # env:
+        # - name: SGX_AESM_ADDR
+        #   value: "1"
+        # - name: OE_LOG_LEVEL
+        #   value: "INFO"
+        imagePullPolicy: Always
+        volumeMounts:
+        - name: var-run-aesmd
+          mountPath: /var/run/aesmd
+        resources:
+          limits:
+            kubernetes.azure.com/sgx_epc_mem_in_MiB: "1"
+          requests:
+            kubernetes.azure.com/sgx_epc_mem_in_MiB: "1"
+      volumes:
+      - name: var-run-aesmd
+        hostPath:
+          path: /var/run/aesmd
+      restartPolicy: "Never"
+  backoffLimit: 0

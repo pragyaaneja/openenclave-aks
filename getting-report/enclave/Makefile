@@ -18,6 +18,7 @@ CFLAGS=$(shell pkg-config oeenclave-$(COMPILER) --cflags)
 CXXFLAGS=$(shell pkg-config oeenclave-$(CXX_COMPILER) --cflags)
 LDFLAGS=$(shell pkg-config oeenclave-$(COMPILER) --libs)
 INCDIR=$(shell pkg-config oeenclave-$(COMPILER) --variable=includedir)
+CRYPTO_LDFLAGS=$(shell pkg-config oeenclave-$(COMPILER) --variable=${OE_CRYPTO_LIB}libs)
 
 all:
 	$(MAKE) build
@@ -31,7 +32,7 @@ build:
 		--search-path $(INCDIR)/openenclave/edl/sgx
 	$(CXX) -g -c $(CFLAGS) -DOE_API_VERSION=2 enc.cpp -o enc.o
 	$(CC) -g -c $(CFLAGS) -DOE_API_VERSION=2 getting_report_t.c -o getting_report_t.o
-	$(CC) -o getting_reportenc getting_report_t.o enc.o $(LDFLAGS)
+	$(CC) -o getting_reportenc getting_report_t.o enc.o $(LDFLAGS) $(CRYPTO_LDFLAGS)
 
 sign:
 	oesign sign -e getting_reportenc -c getting_report.conf -k private.pem

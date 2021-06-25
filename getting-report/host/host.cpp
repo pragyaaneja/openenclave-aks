@@ -54,17 +54,42 @@ int main(int argc, const char* argv[])
     }
 
     // Call into the enclave
-    result = enclave_getting_report(enclave);
-    if (result != OE_OK)
+    // result = enclave_getting_report(enclave);
+    // if (result != OE_OK)
+    // {
+    //     fprintf(
+    //         stderr,
+    //         "calling into enclave_getting_report failed: result=%u (%s)\n",
+    //         result,
+    //         oe_result_str(result));
+    //     goto exit;
+    // }
+
+    // ret = 0;
+
+
+    // Call into the enclave
+    result = enclave_getting_report(enclave, &ret);
+    // fprintf(
+    //         stderr,
+    //         "THIS IS the value of ret = %d\n",
+    //         ret);
+    if ((result != OE_OK) || (ret != 0))
     {
         fprintf(
             stderr,
             "calling into enclave_getting_report failed: result=%u (%s)\n",
             result,
             oe_result_str(result));
+        if (ret == 0)
+            ret = 1;
         goto exit;
     }
 
+    // fprintf(
+    //         stderr,
+    //         "THIS IS the final value of ret = %d\n",
+    //         ret);
     ret = 0;
 
 exit:

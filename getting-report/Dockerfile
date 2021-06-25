@@ -2,6 +2,7 @@ FROM ubuntu:18.04
 
 # This is the latest PSW version we are currently supporting. This may change in the future and you may require to update it
 # In that case, refer: https://01.org/intel-software-guard-extensions/downloads
+# ARG PSW_VERSION=2.13.103
 ARG PSW_VERSION=2.11
 
 # Use the APT preference file to pin sgx packages to specific versions
